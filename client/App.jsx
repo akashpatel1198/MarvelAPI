@@ -1,9 +1,12 @@
 import React from "react";
+import Navbar from "./components/Navbar";
+import CharSearch from "./components/CharSearch";
 
 const App = () => {
   return (
     <div id="app">
-      <p>This text is from React</p>
+      <Navbar></Navbar>
+      <CharSearch></CharSearch>
     </div>
   );
 };
