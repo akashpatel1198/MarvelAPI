@@ -1,10 +1,13 @@
 import React from "react";
 
-const CharRow = (props) => {
+const CharRow = ({char}) => {
+  console.log('the char is: ')
+  console.log(char)
   return (
     <div className="char-row">
-      <p>CharName: {props.name}</p>
-      <p>Description: {props.desc}</p>
+      <p>CharName: {char.name}</p>
+      <p>Description: {char.description}</p>
+      <p>comics.collectionURI: {char.comics.collectionURI}</p>
     </div>
   );
 };

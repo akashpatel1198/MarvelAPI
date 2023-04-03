@@ -9,7 +9,9 @@ const SearchBar = (props) => {
   return (
     <div className="search-bar">
       <label>Character Name: </label>
-      <input id="charInput"></input>
+      <input id="name"></input>
+      <label>Limit: </label>
+      <input id="limit"></input>
       <button className="search-btn" onClick={props.handleClick}>Search</button>
     </div>
   );
@@ -20,15 +22,12 @@ const CharSearch = () => {
 
   const [charArr, setCharArr] = useState([]);
 
-  const charArr2 = [
-    <h1>from Array test 2</h1>
-  ];
-
   function handleClick() {
-    const input = document.getElementById('charInput');
-    console.log('button was clicked with charName: ', input.value)
-    callAPI(input.value);
-    input.value = ''
+    const name = document.getElementById('name');
+    const limit = document.getElementById('limit');
+    callAPI(name.value, limit.value ? limit.value : 10);
+    name.value = '';
+    limit.value = '';
   };
 
   function callAPI(charName, limit = 10) {
@@ -41,13 +40,12 @@ const CharSearch = () => {
       .then((res) => res.json())
       .then((data) => {
         setCharArr([]);
-        console.log(data.data.results)
+        // console.log(data.data.results)
         for (let char of data.data.results) {
-          console.log('pushing p')
           setCharArr((prevState) => {
-            const newState = [...prevState]
-            newState.push(<CharRow name={char.name} desc={char.description}></CharRow>);
-            return newState
+            const newState = [...prevState];
+            newState.push(<CharRow char={char}></CharRow>);
+            return newState;
           })
           // charArr.push(<CharRow name={char.name} desc={char.description}></CharRow>)
         }
@@ -59,7 +57,7 @@ const CharSearch = () => {
   }
 
   return (
-    <div id="display">
+    <div id="char-search">
       <p>This is the API_KEY: {API_KEY}</p>
       <SearchBar handleClick={handleClick}></SearchBar>
       {charArr}
